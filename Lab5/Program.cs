@@ -51,7 +51,7 @@ namespace Lab5
         private static int GetSides(string prompt)
         {
             Console.Write(prompt);
-            if(!int.TryParse(Console.ReadLine(), out int sides) || sides < 6)
+            if(!int.TryParse(Console.ReadLine(), out int sides) || sides < 2)
             {
                 Console.Write("Invalid input. ");
                 return GetSides(prompt);
