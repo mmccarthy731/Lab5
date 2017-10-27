@@ -16,23 +16,24 @@ namespace Lab5
                 string name = GetUserName("Please enter your name: ");
                 int sides = GetSides($"How many sides would you like your dice to have, {name}?: ");
                 bool repeat = RollDice($"Would you like to roll the dice, {name}? (Y or N): ");
-                int attempts = 1;
+                int attempts = 10;
 
                 while (repeat)
                 {
+                    attempts--;
                     for (int i = 1; i <= 2; i++)
                     {
                         int num = generator.Next(sides) + 1;
                         Console.WriteLine(num);
                     }
-                    Console.Write($"You have {10 - attempts} rolls remaining, {name}. ");
-                    if (attempts < 10)
+                    if (attempts > 0)
                     {
+                        Console.Write($"You have {attempts} rolls remaining, {name}. ");
                         repeat = RollDice("Would you like to roll again? (Y or N): ");
-                        attempts++;
                     }
                     else
                     {
+                        Console.Write($"You are out of rolls, {name}. ");
                         repeat = false;
                     }
                 }
