@@ -10,12 +10,12 @@ namespace Lab5
 
             Console.WriteLine("Welcome to the Grand Circus Casino!\n\nThis is a dice rolling simulator. Each user is allowed up to 10 rolls of the dice.\n");
 
-            bool changeUser = true;
-            while (changeUser)
+            bool newUser = true;
+            while (newUser)
             {
                 string name = GetUserName("Please enter your name: ");
                 int sides = GetSides($"How many sides would you like your dice to have, {name}?: ");
-                bool repeat = RollDice($"Would you like to roll the dice, {name}? (Y or N): ");
+                bool repeat = GetYesOrNo($"Would you like to roll the dice, {name}? (Y or N): ");
                 int attempts = 10;
 
                 while (repeat)
@@ -24,12 +24,12 @@ namespace Lab5
                     for (int i = 1; i <= 2; i++)
                     {
                         int num = generator.Next(sides) + 1;
-                        Console.WriteLine(num);
+                        Console.WriteLine($"Dice {i}: {num}");
                     }
                     if (attempts > 0)
                     {
                         Console.Write($"You have {attempts} rolls remaining, {name}. ");
-                        repeat = RollDice("Would you like to roll again? (Y or N): ");
+                        repeat = GetYesOrNo("Would you like to roll again? (Y or N): ");
                     }
                     else
                     {
@@ -37,7 +37,7 @@ namespace Lab5
                         repeat = false;
                     }
                 }
-                changeUser = ChangeUser("Would someone else like to roll the dice? (Y or N): ");
+                newUser = GetYesOrNo("Would someone else like to roll the dice? (Y or N): ");
             }
             Console.WriteLine("Thank you, and I hope you enjoyed your stay at Grand Circus Casino! Goodbye.");
             Console.ReadLine();
@@ -60,26 +60,7 @@ namespace Lab5
             return sides;
         }
 
-        private static bool RollDice(string prompt)
-        {
-            Console.Write(prompt);
-            string input = Console.ReadLine().ToUpper();
-            if(input == "Y")
-            {
-                return true;
-            }
-            else if(input == "N")
-            {
-                return false;
-            }
-            else
-            {
-                Console.Write("Invalid Entry. ");
-                return RollDice(prompt);
-            }
-        }
-
-        private static bool ChangeUser(string prompt)
+        private static bool GetYesOrNo(string prompt)
         {
             Console.Write(prompt);
             string input = Console.ReadLine().ToUpper();
@@ -94,7 +75,7 @@ namespace Lab5
             else
             {
                 Console.Write("Invalid input. ");
-                return ChangeUser(prompt);
+                return GetYesOrNo(prompt);
             }
         }
     }
